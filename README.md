@@ -1,5 +1,5 @@
 # Moly.hu meta provider for Audiobooks
-Audiobookshelf custom metadata provider for Hungarian books, using public Moly.hu book/search pages.
+**[Audiobookshelf](https://audiobookshelf.org/)** custom metadata provider for Hungarian books, using public **[moly.hu](https://moly.hu/)** book and search pages.
 
 `abs-moly` is a small self-hosted HTTP service. Audiobookshelf sends it a title (and optionally an author); the service searches Moly.hu, opens the matching book pages, and converts the metadata to Audiobookshelf's custom-provider format.
 
