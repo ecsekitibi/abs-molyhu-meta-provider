@@ -30,21 +30,12 @@ abs-moly/
 ├── .dockerignore
 ├── .env.example
 ├── .gitignore
-├── .github/
-│   └── workflows/
-│       └── test.yml
 ├── Dockerfile
 ├── LICENSE
 ├── README.md
 ├── app.py
 ├── docker-compose.yml
-├── requirements.txt
-├── requirements-dev.txt
-└── tests/
-    ├── fixtures/
-    │   ├── moly_book.html
-    │   └── moly_search.html
-    └── test_app.py
+└── requirements.txt
 ```
 
 ## Requirements
