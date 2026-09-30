@@ -1,9 +1,10 @@
 # Moly.hu meta provider for Audiobooks
-**[Audiobookshelf](https://audiobookshelf.org/)** custom metadata provider for Hungarian books, using public **[moly.hu](https://moly.hu/)** book and search pages.
+Custom metadata provider for **[Audiobookshelf](https://audiobookshelf.org/)**, using **[moly.hu](https://moly.hu/)**, the largest Hungarian book community and catalog.
 
-`abs-moly` is a small self-hosted HTTP service. Audiobookshelf sends it a title (and optionally an author); the service searches Moly.hu, opens the matching book pages, and converts the metadata to Audiobookshelf's custom-provider format.
+`abs-moly` is a small self-hosted HTTP service. Audiobookshelf sends it a title (and optionally an author); the service searches moly.hu, opens the matching book pages, and converts the metadata to Audiobookshelf's custom-provider format.
 
 > **Status:** This project is community software and is not affiliated with Audiobookshelf or Moly.hu.
+
 > **Disclaimer:** This is a test / personal project and is not affiliated with or endorsed by Audiobookshelf or Moly.hu.
 > It was fully **vibe coded** and may contain bugs, incomplete handling, or break when upstream sites change. Use it at your own risk.
 
@@ -150,7 +151,7 @@ Audiobookshelf's official custom-provider documentation says that a self-hosted 
 If Audiobookshelf is on another server, use the Docker host's LAN IP, for example:
 
 ```text
-http://192.168.1.23:8787
+http://container-ip:8787
 ```
 
 If Audiobookshelf itself is running in Docker on the **same Docker network**, you can instead use the Compose service name, for example:
@@ -158,8 +159,6 @@ If Audiobookshelf itself is running in Docker on the **same Docker network**, yo
 ```text
 http://abs-moly:8787
 ```
-
-Do not expose the host port unnecessarily when an internal Docker network is enough.
 
 ### 2. Add the custom metadata provider
 
@@ -176,34 +175,23 @@ Create a **Book** custom provider with:
 
 | Field | Value |
 |---|---|
-| Name | `Moly` |
-| URL | `http://192.168.1.23:8787` |
+| Name | `moly.hu` |
+| URL | `http://container-ip:8787` |
 | Authorization Header Value | the same value as `.env` → `AUTH_TOKEN` |
 
-Use your actual server address instead of `192.168.1.23`.
-
-**Important:** enter only the provider base URL. Do **not** append `/search`.
-
-Use:
-
-```text
-http://192.168.1.23:8787
-```
-
-Audiobookshelf calls the `/search` path itself.
 
 ### 3. Select Moly for a library
 
-Open the library's metadata settings and select **Moly** as an available/default online metadata provider where appropriate.
+Open the library's metadata settings and select **moly.hu** as an available/default online metadata provider where appropriate.
 
-You can also choose Moly for an individual book from **Match**.
+You can also choose moly.hu for an individual book from **Match**.
 
 ### 4. Match a book manually
 
 For a book such as:
 
 ```text
-A Dűne gyermekei
+e.g.: A Dűne gyermekei
 ```
 
 open the book in Audiobookshelf and choose **Match**.
@@ -301,7 +289,7 @@ docker exec -it abs-moly python app.py --url \
 
 If that works, the problem is likely in Moly's search page or search URL rather than the book-page parser.
 
-Moly has changed its HTML structure repeatedly over the years; the Calibre Moly plugin has a long history of site-layout fixes, including updates in 2024, 2025, and 2026. See the references below.
+Moly has changed its HTML structure repeatedly over the years; the [Calibre Moly plugin](https://github.com/otapi/Calibre_Moly_hu) has a long history of site-layout fixes, including updates in 2024, 2025, and 2026. See the references below.
 
 ### Audiobookshelf returns a connection error
 
@@ -367,8 +355,6 @@ rather than the older:
 {"q": search_query}
 ```
 
-The latter was observed redirecting to the Moly homepage in the supplied 2026 test.
-
 ### Throttling and caching
 
 Every live Moly request is serialized through one lock and spaced by `MIN_INTERVAL` seconds. Search and book pages are cached in memory for `CACHE_TTL` seconds.
@@ -395,7 +381,7 @@ The health endpoint `/` is left unauthenticated so it can be used for basic conn
 
 ## Respectful use
 
-This project scrapes public web pages. Keep request rates modest, use the built-in cache, and monitor Moly behavior after deployment. If Moly changes its access rules or published structure, update the provider accordingly rather than trying to bypass restrictions.
+***This project scrapes public web pages. Keep request rates modest.***
 
 # Sources and references
 
@@ -422,7 +408,6 @@ Official documentation:
 https://github.com/audiobookshelf/audiobookshelf-docs/blob/master/docs/documentation/libraries/book-library/2.book-metadata.md
 
 This explains manual Match, Quick Match, online metadata providers, and metadata precedence.
-
 
 ## Moly metadata plugin history
 
