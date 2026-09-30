@@ -27,9 +27,7 @@ Audiobookshelf custom metadata provider for Hungarian books, using public Moly.h
 
 ```text
 abs-moly/
-├── .dockerignore
-├── .env.example
-├── .gitignore
+├── env.example
 ├── Dockerfile
 ├── LICENSE
 ├── README.md
@@ -76,7 +74,7 @@ For a complete checkout, copy/upload the entire repository instead. The `.env.ex
 ### 3. Create a private `.env`
 
 ```bash
-cp .env.example .env
+cp env.example .env
 ```
 
 Generate a random token, for example on Linux:
@@ -92,8 +90,6 @@ AUTH_TOKEN=replace-with-a-long-random-token
 ```
 
 with the generated value.
-
-**Do not commit `.env` to GitHub.** It is ignored by `.gitignore`.
 
 ### 4. Build and start
 
