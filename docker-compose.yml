@@ -1,0 +1,16 @@
+services:
+  abs-moly:
+    build: .
+    container_name: abs-moly
+    restart: unless-stopped
+    ports:
+      - "${ABS_MOLY_PORT:-8787}:8787"
+    environment:
+      TZ: ${TZ:-Europe/Budapest}
+      AUTH_TOKEN: ${AUTH_TOKEN:?Set AUTH_TOKEN in .env}
+      MAX_RESULTS: ${MAX_RESULTS:-5}
+      MIN_INTERVAL: ${MIN_INTERVAL:-1.0}
+      CACHE_TTL: ${CACHE_TTL:-86400}
+      REQUEST_TIMEOUT: ${REQUEST_TIMEOUT:-20}
+      MOLY_BASE_URL: ${MOLY_BASE_URL:-https://moly.hu}
+      USER_AGENT: ${USER_AGENT:-Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0}
