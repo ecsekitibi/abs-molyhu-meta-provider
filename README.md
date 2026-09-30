@@ -350,94 +350,6 @@ The most edition-sensitive fields are:
 
 If the HTML changes, update the parsing helpers in `app.py`; networking, throttling, and the ABS API do not need to change just because a selector changes.
 
-## Development
-
-Create a virtual environment:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements-dev.txt
-```
-
-Run the tests:
-
-```bash
-pytest -q
-```
-
-Run the development server:
-
-```bash
-AUTH_TOKEN=test-token python app.py
-```
-
-Then:
-
-```bash
-curl -H 'AUTHORIZATION: test-token' \
-  'http://127.0.0.1:8787/search?query=d%C5%B1ne%20gyermekei'
-```
-
-## Docker rebuild after code changes
-
-When you change `app.py` or the dependency files:
-
-```bash
-docker compose down
-docker compose up -d --build
-```
-
-A plain `docker compose restart` does **not** rebuild the image.
-
-## GitHub publication
-
-From the repository root:
-
-```bash
-git init
-git add .
-git commit -m "Initial abs-moly Audiobookshelf provider"
-```
-
-Create an empty GitHub repository, then:
-
-```bash
-git branch -M main
-git remote add origin https://github.com/YOUR-USER/abs-moly.git
-git push -u origin main
-```
-
-### Files that should be uploaded to GitHub
-
-Upload/commit all of these:
-
-```text
-app.py
-docker-compose.yml
-Dockerfile
-requirements.txt
-requirements-dev.txt
-.env.example
-.gitignore
-.dockerignore
-LICENSE
-README.md
-.github/workflows/test.yml
-tests/test_app.py
-tests/fixtures/moly_search.html
-tests/fixtures/moly_book.html
-```
-
-### File that must NOT be uploaded
-
-Do not upload:
-
-```text
-.env
-```
-
-That file contains your real `AUTH_TOKEN`.
 
 ## Design notes
 
@@ -485,7 +397,7 @@ The health endpoint `/` is left unauthenticated so it can be used for basic conn
 
 This project scrapes public web pages. Keep request rates modest, use the built-in cache, and monitor Moly behavior after deployment. If Moly changes its access rules or published structure, update the provider accordingly rather than trying to bypass restrictions.
 
-## Sources and references
+# Sources and references
 
 ### Audiobookshelf custom metadata provider specification
 
@@ -511,21 +423,12 @@ https://github.com/audiobookshelf/audiobookshelf-docs/blob/master/docs/documenta
 
 This explains manual Match, Quick Match, online metadata providers, and metadata precedence.
 
-### Moly.hu search URL evidence
 
-An indexed library document contains Moly search links using the current-style `query=` parameter, including:
-
-https://moly.hu/kereses?utf8=%E2%9C%93&query=boldog+boldogtalan
-
-Source document:
-
-https://konyvtar.bmk.hu/documents/10180/3201061/olvasasi_kihivas%2B_%2Bkonyvlista_2025.pdf/071139d6-1ccc-486f-aa37-81fabef7864d
-
-### Moly metadata plugin history
+## Moly metadata plugin history
 
 The long-running community Calibre Moly plugin is another useful reference because it has had to track Moly HTML changes over many years:
 
-- GitHub: https://github.com/otapi/Calibre_Moly_hu
+**- GitHub: https://github.com/otapi/Calibre_Moly_hu**
 - Current Calibre plugin index: https://plugins.calibre-ebook.com/
 - MobileRead discussion/history: https://www.mobileread.com/forums/showthread.php?t=193302
 
