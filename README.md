@@ -413,7 +413,7 @@ This explains manual Match, Quick Match, online metadata providers, and metadata
 
 The long-running community Calibre Moly plugin is another useful reference because it has had to track Moly HTML changes over many years:
 
-**- GitHub: https://github.com/otapi/Calibre_Moly_hu**
+- **GitHub: https://github.com/otapi/Calibre_Moly_hu**
 - Current Calibre plugin index: https://plugins.calibre-ebook.com/
 - MobileRead discussion/history: https://www.mobileread.com/forums/showthread.php?t=193302
 
